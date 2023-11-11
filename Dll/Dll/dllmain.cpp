@@ -2,8 +2,8 @@
 #include "requirements.h"
 
 BOOL WINAPI DllMain(HINSTANCE hinst, DWORD dwReason, LPVOID reserved) {
-	if (!DetourIsHelperProcess()) {
-		return 1;
+	if (DetourIsHelperProcess()) {
+		return TRUE;
 	}
 
 	switch (dwReason) {
@@ -19,5 +19,5 @@ BOOL WINAPI DllMain(HINSTANCE hinst, DWORD dwReason, LPVOID reserved) {
 		break;
 	}
 
-	return 0;
+	return TRUE;
 }
