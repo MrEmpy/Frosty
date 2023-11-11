@@ -16,7 +16,6 @@ if (-not $args) {
     Write-Host "[*] Building $($args[0]) Rootkit"
     & $MSBUILD Frosty.sln $MSB_FLAGS
     Copy-Item ".\x64\Release\Dll.dll" -Destination ".\build\" -Force
-	Copy-Item ".\x64\Release\Console.exe" -Destination ".\build\" -Force
 	Copy-Item ".\x64\Release\Service.exe" -Destination ".\build\" -Force
 	Copy-Item ".\x64\Release\Uninstall.exe" -Destination ".\build\" -Force	
 	
