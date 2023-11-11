@@ -29,4 +29,4 @@ Execute the `build/Deployer.exe` file to automatically deploy the rootkit to the
 
 ## PoC Video
 
-comming soon...
+[![](https://img.youtube.com/vi/Ji12eh6LR78/0.jpg)](https://www.youtube.com/watch?v=Ji12eh6LR78)
