@@ -25,6 +25,8 @@ cd Frosty
 ls build/
 ```
 
+Execute the `build/Deployer.exe` file to automatically deploy the rootkit to the machine and execute `build/Uninstall.exe` on the machine to uninstall the Frosty rootkit.
+
 ## PoC Video
 
 comming soon...
