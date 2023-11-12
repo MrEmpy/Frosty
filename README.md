@@ -6,8 +6,6 @@ Frosty is a sophisticated rootkit malware developed specifically for Windows ope
 
 A notable feature of Frosty is its use of Microsoft's Detours library. This strategic choice allows the malware to engage the Windows Native API (NTAPI), the application programming interfaces essential to the operating system's functions. Manipulating NTAPI allows Frosty to bypass conventional security measures and avoid detection by traditional methods.
 
-**Note:** Frosty rootkit is in its early phase of development, therefore, we are in beta version. We await feedback on the rootkit so we can improve it.
-
 ## Install
 
 ### Requirements
@@ -31,3 +29,9 @@ Execute the `build/Deployer.exe` file to automatically deploy the rootkit to the
 ## PoC Video
 
 [![](https://img.youtube.com/vi/Ji12eh6LR78/0.jpg)](https://www.youtube.com/watch?v=Ji12eh6LR78)
+
+## Note
+
+The Frosty rootkit is in its early development phase, so we are in beta. We welcome feedback on the rootkit so we can improve it.
+
+This is one of my ambitious projects, as much as it is a ring 3 rootkit, it was a project in which I learned more internally about the Windows operating system. So if you find any bugs, please report them in `issues` so we can reach a final point and fix them.
