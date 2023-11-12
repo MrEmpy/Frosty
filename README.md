@@ -6,6 +6,12 @@ Frosty is a sophisticated rootkit malware developed specifically for Windows ope
 
 A notable feature of Frosty is its use of Microsoft's Detours library. This strategic choice allows the malware to engage the Windows Native API (NTAPI), the application programming interfaces essential to the operating system's functions. Manipulating NTAPI allows Frosty to bypass conventional security measures and avoid detection by traditional methods.
 
+## Features
+
+* Hide processes
+* Hide services
+* Hide directory
+
 ## Install
 
 ### Requirements
