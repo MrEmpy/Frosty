@@ -8,9 +8,10 @@ A notable feature of Frosty is its use of Microsoft's Detours library. This stra
 
 ## Features
 
-* Hide processes
-* Hide services
-* Hide directory
+* Hide Processes
+* Hide Services
+* Hide Directory
+* AMSI Bypass
 
 ## Install
 
