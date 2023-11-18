@@ -5,6 +5,7 @@
 #include <winternl.h>
 #include <stdio.h>
 #include <shlwapi.h>
+#include <amsi.h>
 #include "structs.h"
 #include "detours.h"
 #include "../../config.h"

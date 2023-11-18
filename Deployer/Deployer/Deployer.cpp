@@ -94,7 +94,7 @@ int main() {
     service = CreateServiceW(
         scm,
         RK_SERVICE_NAME,
-        RK_SERVICE_NAME,
+        RK_SERVICE_DESCRIPTION,
         SERVICE_ALL_ACCESS,
         SERVICE_WIN32_OWN_PROCESS,
         SERVICE_AUTO_START,

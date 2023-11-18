@@ -3,6 +3,7 @@
 
 #define STATUS_NO_MORE_FILES 0x80000006
 #define STATUS_NO_MORE_ENTRIES 0x8000001A
+#define AMSI_IS_SAFE 0x80070057
 
 typedef NTSTATUS(NTAPI* typedefNtQueryDirectoryFile)(
 	HANDLE                 FileHandle,
@@ -61,4 +62,13 @@ typedef BOOL(WINAPI* typedefEnumServicesStatusExW)(
 	LPDWORD servicesReturned,
 	LPDWORD resumeHandle,
 	LPCWSTR groupName
+);
+
+typedef HRESULT(WINAPI* typedefAmsiScanBuffer)(
+	HAMSICONTEXT context,
+	void* buffer,
+	ULONG length,
+	const WCHAR* name,
+	HAMSISESSION session,
+	AMSI_RESULT* result
 );

