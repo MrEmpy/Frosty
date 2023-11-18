@@ -41,3 +41,9 @@ Execute the `build/Deployer.exe` file to automatically deploy the rootkit to the
 The Frosty rootkit is in its early development phase, so we are in beta. We welcome feedback on the rootkit so we can improve it.
 
 This is one of my ambitious projects, as much as it is a ring 3 rootkit, it was a project in which I learned more internally about the Windows operating system. So if you find any bugs, please report them in `issues` so we can reach a final point and fix them.
+
+## Changelog (v0.2b)
+
+* Added suffix that allow user to customize their settings.
+* New macro in `config.h` called `RK_SERVICE_DESCRIPTION` used to set the service description (if you want to change it).
+* Hook the `AmsiScanBuffer` function from `amsi.dll` for evasion.
