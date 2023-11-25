@@ -2,10 +2,6 @@
 #include "requirements.h"
 
 BOOL WINAPI DllMain(HINSTANCE hinst, DWORD dwReason, LPVOID reserved) {
-	if (DetourIsHelperProcess()) {
-		return TRUE;
-	}
-
 	switch (dwReason) {
 	case DLL_PROCESS_ATTACH:
 		StartHook();
