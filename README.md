@@ -48,3 +48,14 @@ This is one of my ambitious projects, as much as it is a ring 3 rootkit, it was 
 * Added suffix that allow user to customize their settings.
 * New macro in `config.h` called `RK_SERVICE_DESCRIPTION` used to set the service description (if you want to change it).
 * Hook the `AmsiScanBuffer` function from `amsi.dll` for evasion.
+
+## Buy me a coffee?
+
+<a href="https://pixgg.com/MrEmpy" target="_blank">
+  <img src="https://pixgg.com/img/logo-darkmode.046d3b61.svg" height="30" widght="30">
+</a>
+</br>
+</br>
+<a href="https://www.buymeacoffee.com/mrempy" target="_blank">
+  <img src="https://play-lh.googleusercontent.com/aMb_Qiolzkq8OxtQZ3Af2j8Zsp-ZZcNetR9O4xSjxH94gMA5c5gpRVbpg-3f_0L7vlo" height="50" widght="50">
+</a>
